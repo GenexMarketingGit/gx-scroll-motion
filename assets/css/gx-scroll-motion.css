@@ -1,0 +1,404 @@
+.sm-animate {
+	opacity: 1;
+	transform: none;
+	backface-visibility: hidden;
+	transform-style: preserve-3d;
+}
+
+.sm-motion-ready .sm-animate.sm-motion-bound {
+	opacity: 0;
+	transform: translate3d(0, 48px, 0);
+}
+
+/* Story mode: prevent parent hidden state from blanking the stage */
+.sm-motion-ready .sm-animate.sm-motion-bound.sm-story-stage {
+	opacity: 1;
+	transform: none;
+}
+
+/* On-load: JS sets effect-specific initial pose synchronously.
+   Suppress the generic translate-Y baseline so fade-left/right/scale
+   etc. don't visibly start in the fade-up pose for one paint. */
+.sm-motion-ready .sm-animate.sm-motion-bound.sm-on-load {
+	transform: none;
+}
+
+.sm-block-content {
+	width: 100%;
+}
+
+.sm-stagger-children > .sm-block-content > *,
+.sm-gb-card-grid > .sm-block-content > *,
+.sm-story-stage > .sm-block-content > * {
+	will-change: transform, opacity;
+}
+
+.sm-scroll-video {
+	position: relative;
+	line-height: 0;
+	margin: 0;
+	--sm-video-section-height: 220vh;
+	--sm-video-section-height-mobile: var(--sm-video-section-height);
+	--sm-video-stage-height: 100vh;
+	--sm-video-stage-z-index: 100;
+	--sm-video-content-z-index: 101;
+	--sm-video-caption-z-index: 102;
+}
+
+/* Only clip overflow for inline (non-section) video blocks.
+   Section mode must NOT have overflow:hidden on the wrapper,
+   or position:sticky on the stage breaks in many browsers. */
+.sm-scroll-video:not(.sm-scroll-video--section) {
+	overflow: hidden;
+}
+
+.sm-scroll-video__stage {
+	position: relative;
+	width: 100%;
+}
+
+.sm-scroll-video--section {
+	clear: both;
+	display: block;
+	height: var(--sm-video-section-height);
+	min-height: 100vh;
+	position: relative;
+}
+
+/* Mobile section height override.
+   Keep selector specificity matched with the base rule. */
+@media (max-width: 768px) {
+
+	.sm-scroll-video.sm-scroll-video--section {
+		height: var(--sm-video-section-height-mobile);
+	}
+}
+
+.sm-scroll-video--section .sm-scroll-video__stage {
+	backface-visibility: hidden;
+	background: #000;
+	height: var(--sm-video-stage-height);
+	overflow: hidden;
+	position: sticky;
+	top: 0;
+	transform: translateZ(0);
+	will-change: transform;
+	z-index: var(--sm-video-stage-z-index);
+}
+
+/* Mobile: keep sticky so video follows scroll through the section */
+@media (max-width: 768px) {
+
+	.sm-scroll-video--section .sm-scroll-video__stage {
+		position: sticky;
+		top: 0;
+		height: var(--sm-video-stage-height);
+		overflow: hidden;
+	}
+}
+
+.sm-scroll-video__media {
+	backface-visibility: hidden;
+	background: #000;
+	display: block;
+	height: auto;
+	object-fit: cover;
+	pointer-events: none;
+	transform: translateZ(0);
+	width: 100%;
+}
+
+.sm-scroll-video--section .sm-scroll-video__media {
+	height: 100%;
+	width: 100%;
+}
+
+.sm-scroll-video__overlay {
+	align-items: center;
+	display: flex;
+	inset: 0;
+	line-height: normal;
+	pointer-events: none;
+	position: absolute;
+	z-index: var(--sm-video-content-z-index);
+}
+
+.sm-scroll-video__content {
+	line-height: normal;
+	margin: 0 auto;
+	max-width: var(--wp--style--global--content-size, 1200px);
+	padding: clamp(1.25rem, 4vw, 3rem);
+	pointer-events: auto;
+	width: 100%;
+}
+
+.sm-scroll-video__flow {
+	line-height: normal;
+	margin-top: calc(-1 * var(--sm-video-stage-height));
+	min-height: var(--sm-video-section-height);
+	pointer-events: none;
+	position: relative;
+	z-index: var(--sm-video-content-z-index);
+}
+
+.sm-scroll-video__flow > .sm-scroll-video__content {
+	padding-top: clamp(4rem, 22vh, 10rem);
+}
+
+.sm-scroll-video__caption {
+	margin-top: 0.85rem;
+	font-size: 0.95rem;
+	line-height: 1.5;
+	opacity: 0.78;
+}
+
+.sm-scroll-video--section .sm-scroll-video__caption {
+	position: absolute;
+	left: 1rem;
+	right: 1rem;
+	bottom: 1rem;
+	margin-top: 0;
+	color: #fff;
+	text-shadow: 0 2px 16px rgba(0, 0, 0, 0.45);
+	z-index: var(--sm-video-caption-z-index);
+}
+
+.sm-clip-reveal,
+.sm-scrub-zoom {
+	overflow: hidden;
+}
+
+.sm-preset-hero-reveal .sm-block-content,
+.sm-gb-hero-stack .sm-block-content {
+	display: grid;
+	gap: clamp(0.75rem, 2vw, 1.25rem);
+}
+
+.sm-gb-hero-stack .gb-button-wrapper,
+.sm-gb-hero-stack .wp-block-buttons {
+	margin-top: 0.5rem;
+}
+
+.sm-gb-card-grid .sm-block-content,
+.sm-gb-card-grid.gb-container {
+	gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.sm-gb-card-grid .gb-grid-column,
+.sm-gb-card-grid .gb-container,
+.sm-gb-card-grid .wp-block-group {
+	height: 100%;
+}
+
+.sm-gb-testimonial-strip .sm-block-content {
+	gap: clamp(1rem, 2vw, 1.4rem);
+}
+
+/* ─── Story Mode ────────────────────────────────────────────────── */
+.sm-story-stage {
+	position: relative;
+	overflow: clip;
+}
+
+.sm-story-stage .sm-block-content {
+	display: grid;
+	align-items: center;
+	justify-items: center;
+}
+
+.sm-story-panel {
+	position: relative;
+	grid-area: 1 / 1;
+	width: 100%;
+	max-width: 100%;
+	will-change: transform, opacity, filter;
+	transform: translateZ(0);
+	backface-visibility: hidden;
+}
+
+.sm-preset-stacked-cards .sm-story-panel,
+.sm-preset-story-panels .sm-story-panel {
+	padding: clamp(1.5rem, 4vw, 3rem);
+	border-radius: 18px;
+	background: rgba(255, 255, 255, 0.72);
+	box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+	backdrop-filter: blur(8px);
+}
+
+.sm-snap-story .sm-story-panel {
+	scroll-snap-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.sm-animate,
+	.sm-story-panel,
+	.sm-stagger-children > .sm-block-content > * {
+		opacity: 1 !important;
+		transform: none !important;
+		filter: none !important;
+		clip-path: none !important;
+		transition: none !important;
+	}
+}
+
+/* ─── Motion Toggle Button ──────────────────────────────────────── */
+.sm-motion-toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.55rem 1rem;
+	border: 1px solid currentcolor;
+	border-radius: 6px;
+	background: transparent;
+	color: inherit;
+	font: inherit;
+	font-size: 0.875rem;
+	line-height: 1;
+	cursor: pointer;
+	transition: background 0.15s ease;
+}
+
+.sm-motion-toggle:hover,
+.sm-motion-toggle:focus-visible {
+	background: rgba(128, 128, 128, 0.12);
+	outline: 2px solid currentcolor;
+	outline-offset: 2px;
+}
+
+.sm-motion-toggle[aria-pressed="true"] {
+	background: rgba(128, 128, 128, 0.18);
+}
+
+/* Fixed accessibility toggle (rendered via wp_footer) */
+.sm-motion-toggle--bottom-right,
+.sm-motion-toggle--bottom-left,
+.sm-motion-toggle--top-right,
+.sm-motion-toggle--top-left {
+	position: fixed;
+	z-index: 99999;
+	padding: 0.65rem;
+	border: none;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.92);
+	color: #1a1a1a;
+	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+	backdrop-filter: blur(4px);
+	transition: transform 0.15s ease, opacity 0.2s ease, background 0.15s ease;
+}
+
+.sm-motion-toggle--bottom-right {
+	bottom: 1rem;
+	right: 1rem;
+}
+
+.sm-motion-toggle--bottom-left {
+	bottom: 1rem;
+	left: 1rem;
+}
+
+.sm-motion-toggle--top-right {
+	top: 1rem;
+	right: 1rem;
+}
+
+.sm-motion-toggle--top-left {
+	top: 1rem;
+	left: 1rem;
+}
+
+.sm-motion-toggle--bottom-right:hover,
+.sm-motion-toggle--bottom-right:focus-visible,
+.sm-motion-toggle--bottom-left:hover,
+.sm-motion-toggle--bottom-left:focus-visible,
+.sm-motion-toggle--top-right:hover,
+.sm-motion-toggle--top-right:focus-visible,
+.sm-motion-toggle--top-left:hover,
+.sm-motion-toggle--top-left:focus-visible {
+	background: rgba(255, 255, 255, 1);
+	transform: scale(1.08);
+	outline: 2px solid currentcolor;
+	outline-offset: 2px;
+}
+
+.sm-motion-toggle--bottom-right[aria-pressed="true"],
+.sm-motion-toggle--bottom-left[aria-pressed="true"],
+.sm-motion-toggle--top-right[aria-pressed="true"],
+.sm-motion-toggle--top-left[aria-pressed="true"] {
+	opacity: 0.6;
+}
+
+/* WordPress screen-reader-text safety net */
+.screen-reader-text {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	word-wrap: normal !important;
+}
+
+/* ─── Manually disabled motion ──────────────────────────────────── */
+.sm-motion-disabled .sm-animate,
+.sm-motion-disabled .sm-animate.sm-motion-bound,
+.sm-motion-ready.sm-motion-disabled .sm-animate.sm-motion-bound,
+.sm-motion-disabled .sm-story-panel,
+.sm-motion-disabled .sm-scroll-video__overlay,
+.sm-motion-disabled .sm-stagger-children > .sm-block-content > *,
+.sm-motion-disabled [data-sm-child],
+.sm-motion-disabled .sm-child,
+.sm-motion-disabled .gb-grid-column,
+.sm-motion-disabled .gb-headline,
+.sm-motion-disabled .gb-button-wrapper,
+.sm-motion-disabled .sm-scroll-video__media {
+	opacity: 1 !important;
+	visibility: visible !important;
+	transform: none !important;
+	filter: none !important;
+	clip-path: none !important;
+	transition: none !important;
+	animation: none !important;
+	will-change: auto !important;
+}
+
+/* Story mode: collapse wrapper and flow panels vertically when motion is off */
+.sm-motion-disabled .sm-story-wrapper,
+.sm-motion-disabled .sm-story-stage {
+	min-height: auto !important;
+	overflow: visible !important;
+}
+
+.sm-motion-disabled .sm-story-wrapper .sm-block-content,
+.sm-motion-disabled .sm-story-stage .sm-block-content {
+	display: block !important;
+}
+
+.sm-motion-disabled .sm-story-panel {
+	position: relative !important;
+	inset: auto !important;
+	grid-area: auto !important;
+	width: 100% !important;
+	height: auto !important;
+	display: block !important;
+	opacity: 1 !important;
+	visibility: visible !important;
+	transform: none !important;
+	filter: none !important;
+	clip-path: none !important;
+	transition: none !important;
+	animation: none !important;
+	will-change: auto !important;
+}
+
+/* Motion disabled: keep video stage sticky/full-height.
+   Overlays keep their own z-index. */
+.sm-motion-disabled .sm-scroll-video--section .sm-scroll-video__stage {
+	position: sticky !important;
+	top: 0 !important;
+	height: var(--sm-video-stage-height) !important;
+	overflow: hidden !important;
+}
