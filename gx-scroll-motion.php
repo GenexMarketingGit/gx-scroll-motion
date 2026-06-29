@@ -3,7 +3,7 @@
  * Plugin Name: GX Scroll Motion
  * Plugin URI: https://www.genexmarketing.com
  * Description: Scroll-synced video scrubbing and element animation effects for GeneratePress / GenerateBlocks layouts.
- * Version: 0.7.6
+ * Version: 0.7.9
  * Author: Genex Marketing Ltd.
  * License: GXL v2 or later
  * License URI: https://www.gnu.org/licenses/gxl-2.0.html
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! class_exists( 'GX_Scroll_Motion' ) ) {
     final class GX_Scroll_Motion {
-        const VERSION = '0.7.6';
+        const VERSION = '0.7.9';
         const OPTION_KEY = 'gx_scroll_motion_settings';
 
         public static function init() {
@@ -50,7 +50,7 @@ if ( ! class_exists( 'GX_Scroll_Motion' ) ) {
                 'smEngine'          => array( 'type' => 'string',  'default' => 'native' ),
                 'smHelper'          => array( 'type' => 'string',  'default' => '' ),
                 'smStart'           => array( 'type' => 'number',  'default' => 85 ),
-                'smEnd'             => array( 'type' => 'number',  'default' => 15 ),
+                'smEnd'             => array( 'type' => 'number',  'default' => 50 ),
                 'smDistance'        => array( 'type' => 'number',  'default' => 100 ),
                 'smPin'             => array( 'type' => 'boolean', 'default' => false ),
                 'smStaggerChildren' => array( 'type' => 'boolean', 'default' => false ),
@@ -199,7 +199,7 @@ if ( ! class_exists( 'GX_Scroll_Motion' ) ) {
                 'preset'          => array( 'type' => 'string', 'default' => '' ),
                 'engine'          => array( 'type' => 'string', 'default' => 'native' ),
                 'start'           => array( 'type' => 'number', 'default' => 85 ),
-                'end'             => array( 'type' => 'number', 'default' => 15 ),
+                'end'             => array( 'type' => 'number', 'default' => 50 ),
                 'distance'        => array( 'type' => 'number', 'default' => 100 ),
                 'scaleFrom'       => array( 'type' => 'number', 'default' => 0.85 ),
                 'rotateFrom'      => array( 'type' => 'number', 'default' => 16 ),
@@ -252,7 +252,6 @@ if ( ! class_exists( 'GX_Scroll_Motion' ) ) {
                 array( 'label' => 'Clip Reveal', 'value' => 'clip-reveal' ),
                 array( 'label' => 'Stack Cards', 'value' => 'stack-cards' ),
                 array( 'label' => 'Scrub Zoom', 'value' => 'scrub-zoom' ),
-                array( 'label' => 'Scramble Text', 'value' => 'scramble' ),
                 array( 'label' => 'Type In Text', 'value' => 'type-in' ),
             );
         }
@@ -265,7 +264,7 @@ if ( ! class_exists( 'GX_Scroll_Motion' ) ) {
                     'effect'         => 'fade-up',
                     'engine'         => 'gsap',
                     'start'          => 92,
-                    'end'            => 18,
+                    'end'            => 50,
                     'distance'       => 140,
                     'scaleFrom'      => 0.94,
                     'opacityFrom'    => 0,
@@ -278,7 +277,7 @@ if ( ! class_exists( 'GX_Scroll_Motion' ) ) {
                     'effect'         => 'scale-in',
                     'engine'         => 'native',
                     'start'          => 88,
-                    'end'            => 20,
+                    'end'            => 50,
                     'distance'       => 72,
                     'scaleFrom'      => 0.94,
                     'opacityFrom'    => 0.05,
@@ -291,7 +290,7 @@ if ( ! class_exists( 'GX_Scroll_Motion' ) ) {
                     'effect'      => 'parallax',
                     'engine'      => 'native',
                     'start'       => 95,
-                    'end'         => 5,
+                    'end'         => 50,
                     'distance'    => 90,
                     'scaleFrom'   => 1,
                     'opacityFrom' => 1,
@@ -302,7 +301,7 @@ if ( ! class_exists( 'GX_Scroll_Motion' ) ) {
                     'effect'         => 'stack-cards',
                     'engine'         => 'gsap',
                     'start'          => 90,
-                    'end'            => 10,
+                    'end'            => 50,
                     'distance'       => 110,
                     'scaleFrom'      => 0.88,
                     'opacityFrom'    => 0,
@@ -315,7 +314,7 @@ if ( ! class_exists( 'GX_Scroll_Motion' ) ) {
                     'effect'         => 'fade-up',
                     'engine'         => 'gsap',
                     'start'          => 94,
-                    'end'            => 6,
+                    'end'            => 50,
                     'distance'       => 96,
                     'scaleFrom'      => 0.985,
                     'opacityFrom'    => 0,
@@ -329,20 +328,10 @@ if ( ! class_exists( 'GX_Scroll_Motion' ) ) {
                     'effect'      => 'scrub-zoom',
                     'engine'      => 'gsap',
                     'start'       => 95,
-                    'end'         => 5,
+                    'end'         => 50,
                     'distance'    => 0,
                     'scaleFrom'   => 1.18,
                     'opacityFrom' => 0.2,
-                ),
-                'text-scramble' => array(
-                    'label'       => 'Text Scramble',
-                    'description' => 'Quirky text reveal that cycles through strange glyphs before settling on the real copy.',
-                    'effect'      => 'scramble',
-                    'engine'      => 'native',
-                    'start'       => 96,
-                    'end'         => 28,
-                    'distance'    => 0,
-                    'opacityFrom' => 0,
                 ),
                 'text-type-in' => array(
                     'label'       => 'Text Type In',
@@ -350,7 +339,7 @@ if ( ! class_exists( 'GX_Scroll_Motion' ) ) {
                     'effect'      => 'type-in',
                     'engine'      => 'native',
                     'start'       => 96,
-                    'end'         => 30,
+                    'end'         => 50,
                     'distance'    => 0,
                     'opacityFrom' => 0,
                 ),
@@ -471,7 +460,7 @@ Story panel child: sm-story-panel</pre>
                     'preset'            => '',
                     'engine'            => 'native',
                     'start'             => 85,
-                    'end'               => 15,
+                    'end'               => 50,
                     'distance'          => 100,
                     'scale_from'        => 0.85,
                     'rotate_from'       => 16,
@@ -584,7 +573,7 @@ Story panel child: sm-story-panel</pre>
                 'data-sm-preset'         => $preset,
                 'data-sm-engine'         => $engine,
                 'data-sm-start'          => self::sanitize_number( $attributes['start'], 85 ),
-                'data-sm-end'            => self::sanitize_number( $attributes['end'], 15 ),
+                'data-sm-end'            => self::sanitize_number( $attributes['end'], 50 ),
                 'data-sm-distance'       => self::sanitize_number( $attributes['distance'], 100 ),
                 'data-sm-scale-from'     => self::sanitize_float( $attributes['scaleFrom'], 0.85 ),
                 'data-sm-rotate-from'    => self::sanitize_number( $attributes['rotateFrom'], 16 ),

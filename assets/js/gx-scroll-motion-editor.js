@@ -155,7 +155,7 @@
                 smEngine: { type: 'string', default: 'native' },
                 smHelper: { type: 'string', default: '' },
                 smStart: { type: 'number', default: 85 },
-                smEnd: { type: 'number', default: 15 },
+                smEnd: { type: 'number', default: 50 },
                 smDistance: { type: 'number', default: 100 },
                 smPin: { type: 'boolean', default: false },
                 smStaggerChildren: { type: 'boolean', default: false },
@@ -311,7 +311,7 @@
             preset: { type: 'string', default: '' },
             engine: { type: 'string', default: 'native' },
             start: { type: 'number', default: 85 },
-            end: { type: 'number', default: 15 },
+            end: { type: 'number', default: 50 },
             distance: { type: 'number', default: 100 },
             scaleFrom: { type: 'number', default: 0.85 },
             rotateFrom: { type: 'number', default: 16 },
@@ -447,8 +447,7 @@
             );
         },
         save: function () {
-            const blockProps = blockEditor.useBlockProps.save();
-            return el('div', blockProps, el(InnerBlocks.Content));
+            return el(InnerBlocks.Content);
         },
     });
 
