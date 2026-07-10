@@ -920,7 +920,7 @@
             initialized = false;
             document.documentElement.classList.remove('sm-motion-ready');
             document.querySelectorAll('.sm-motion-bound').forEach((element) => element.classList.remove('sm-motion-bound'));
-            console.error('GX Scroll Motioninit failed', error);
+            console.error('GX Scroll Motion: init failed', error);
         }
     };
 

@@ -10,9 +10,8 @@
     const presets = window.GXScrollMotionEditor?.presets || {};
     const effects = window.GXScrollMotionEditor?.effects || [];
     const helpers = window.GXScrollMotionEditor?.helpers || [];
-    const visiblePresets = presets;
     const ServerSideRender = serverSideRender;
-    const presetOptions = [{ label: __('None', 'gx-scroll-motion'), value: '' }].concat(Object.keys(visiblePresets).map((key) => ({ label: visiblePresets[key].label, value: key })));
+    const presetOptions = [{ label: __('None', 'gx-scroll-motion'), value: '' }].concat(Object.keys(presets).map((key) => ({ label: presets[key].label, value: key })));
     const helperOptions = [{ label: __('None', 'gx-scroll-motion'), value: '' }].concat(helpers.map((helper) => ({ label: helper.label, value: helper.class })));
     const engineOptions = [
         { label: __('Native', 'gx-scroll-motion'), value: 'native' },
@@ -25,10 +24,6 @@
         'sm-gb-hero-stack', 'sm-gb-card-grid', 'sm-gb-testimonial-strip', 'sm-preset-story-panels',
     ];
     const effectValues = effects.map((effect) => effect.value);
-    const blockEditorStore = window.wp?.blockEditorStore || 'core/block-editor';
-    const blockEditorSelect = window.wp?.data?.select ? window.wp.data.select(blockEditorStore) : null;
-    const blockEditorDispatch = window.wp?.data?.dispatch ? window.wp.data.dispatch(blockEditorStore) : null;
-
 
     const isEligibleBlock = (name) => {
         if (!name || name.indexOf('gx-scroll-motion/') === 0) return false;

@@ -5,9 +5,11 @@
  * Description: Scroll-synced video scrubbing and element animation effects for GeneratePress / GenerateBlocks layouts.
  * Version: 0.7.9
  * Author: Genex Marketing Ltd.
- * License: GXL v2 or later
- * License URI: https://www.gnu.org/licenses/gxl-2.0.html
+ * License: GPL v2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: gx-scroll-motion
+ * Requires at least: 6.0
+ * Requires PHP: 7.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -248,6 +250,7 @@ if ( ! class_exists( 'GX_Scroll_Motion' ) ) {
                 array( 'label' => 'Scale Out', 'value' => 'scale-out' ),
                 array( 'label' => 'Rotate In', 'value' => 'rotate-in' ),
                 array( 'label' => 'Blur In', 'value' => 'blur-in' ),
+                array( 'label' => 'Scramble Text', 'value' => 'scramble' ),
                 array( 'label' => 'Parallax', 'value' => 'parallax' ),
                 array( 'label' => 'Clip Reveal', 'value' => 'clip-reveal' ),
                 array( 'label' => 'Stack Cards', 'value' => 'stack-cards' ),
